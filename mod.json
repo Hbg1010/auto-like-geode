@@ -10,5 +10,14 @@
 	"name": "auto-like",
 	"version": "v1.0.0",
 	"developer": "Hbg1010",
-	"description": "automatically like levels"
+	"description": "automatically like levels",
+	"tags": [
+		"online"
+	],
+	"settings": {
+		"enable": {
+			"type": "bool",
+			"default": true
+		}
+	}
 }

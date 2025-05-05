@@ -6,14 +6,19 @@ using namespace geode::prelude;
 class $modify(LikeLevelAuto, LevelInfoLayer) {
     void levelDownloadFinished(GJGameLevel* p0) {
         LevelInfoLayer::levelDownloadFinished(p0);
-
-        log::debug("is enabled? ", m_likeBtn->isEnabled());
-
+        if (!Mod::get()->getSettingValue<bool>("enable")) return;
+        
         if (m_likeBtn && m_likeBtn->isEnabled()) {
-            LikeItemLayer* x = LikeItemLayer::create(LikeItemType::Level, m_level->m_levelID, 0);
-            x->onLike(nullptr);
-            x->onClose(nullptr); // 0x1efb49173c0
-            // CC_SAFE_DELETE(x);
+            //this works and i wish it didnt. easiest soloution though
+            // and before you ask, no it does not duplicate lines. IDK WHY
+            LikeItemLayer* extraLikeLayer = LikeItemLayer::create(LikeItemType::Level, m_level->m_levelID, 0);
+            LevelInfoLayer::onLike(nullptr);
+            if (auto parent = getParent()->getChildByType<LikeItemLayer*>(0)) {
+                parent->onLike(nullptr);
+            }
+
+            // Lets just be safe
+            CC_SAFE_DELETE(extraLikeLayer);
         }
     }
 };
@@ -22,7 +27,11 @@ class $modify(LikeLevelAuto, LevelInfoLayer) {
 class $modify(LikeLevelPage, LikeItemLayer) {
     bool init(LikeItemType p0, int p1, int p2) {
         if (!LikeItemLayer::init(p0, p1, p2)) return false;
-        log::debug("{} and {}", p1, p2);
+            if (Mod::get()->getSettingValue<bool>("enable") && p0 == LikeItemType::Level) {
+                this->setVisible(false);
+                LikeItemLayer::onLike(nullptr);
+            }
+        
         return true;
     }
 };
