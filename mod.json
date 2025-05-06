@@ -11,9 +11,15 @@
 	"version": "v1.0.0",
 	"developer": "Hbg1010",
 	"description": "automatically like levels",
-	"tags": [
-		"online"
-	],
+	"tags": ["online"],
+	"links": {
+		"source": "https://github.com/Hbg1010/auto-like-geode",
+		"community": "https://discord.gg/V4xQnNxfNh"
+	},
+	"issues": {
+		"url": "https://github.com/Hbg1010/auto-like-geode/issues",
+		"info": "If you find any bugs, or have any feature requests, please post them on the github!"
+	},
 	"settings": {
 		"enable": {
 			"type": "bool",
