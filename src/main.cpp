@@ -14,8 +14,14 @@ class $modify(LikeLevelAuto, LevelInfoLayer) {
             CCSprite* disableButton = CCSprite::createWithSpriteFrameName("GJ_like2Btn2_001.png");
             m_likeBtn->setSprite(disableButton);
             m_likeBtn->m_bEnabled = false;
-            incrementLikes();
+            likedItem(LikeItemType::Level, m_level->m_levelID.value(), true);
+            //incrementLikes();
             CC_SAFE_DELETE(extraLikeLayer);
         }
     }
+
+    // void likedItem(LikeItemType p0, int p1, bool p2) {
+    //     LevelInfoLayer::likedItem(p0, p1, p2);
+    //     log::debug("{}, {}", p1, p2);
+    // }
 };
