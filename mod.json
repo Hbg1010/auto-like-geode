@@ -1,5 +1,5 @@
 {
-	"geode": "4.4.0",
+	"geode": "4.6.2",
 	"gd": {
 		"win": "2.2074",
 		"android": "2.2074",
@@ -8,7 +8,7 @@
 	},
 	"id": "hbg1010.auto-like",
 	"name": "Auto Like",
-	"version": "v1.0.1",
+	"version": "v1.0.2",
 	"developer": "Hbg1010",
 	"description": "automatically like levels",
 	"tags": ["online"],
