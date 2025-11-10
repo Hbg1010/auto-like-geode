@@ -1,5 +1,5 @@
 {
-	"geode": "4.6.2",
+	"geode": "4.9.0",
 	"gd": {
 		"win": "2.2074",
 		"android": "2.2074",
@@ -8,7 +8,7 @@
 	},
 	"id": "hbg1010.auto-like",
 	"name": "Auto Like",
-	"version": "v1.0.2",
+	"version": "v1.0.3",
 	"developer": "Hbg1010",
 	"description": "automatically like levels",
 	"tags": ["online"],
@@ -22,8 +22,52 @@
 	},
 	"settings": {
 		"enable": {
+			"name": "Enable",
 			"type": "bool",
-			"default": true
+			"default": true,
+			"description": "Toggles this mod without having to disable it!"
+		},
+		"progress":{
+			"type": "title",
+			"name": "Progress",
+			"description": "You can add progress requirements here for levels."
+		},
+		"progressReq": {
+			"name": "Only Like With Progress",
+			"type": "bool",
+			"default": false,
+			"description": "Allows you to seperate which levels are automatically liked if you have progress on them!"
+		},
+		"percentMode": {
+			"name": "Percent",
+			"type": "int",
+			"default": 100,
+			"min": 0,
+			"max": 100,
+			"control": {
+				"slider": true,
+				"slider-step": 1,
+				"arrow-step": 1,
+				"input": true,
+				"big-arrows": true,
+				"big-arrow-step": 10
+			},
+			"description": "Enabling this setting causes the mod to only automatically like levels you have surpassed a specific percent on!",
+			"enable-if": "progressReq"
+		},
+		"normalMode": {
+			"type": "bool",
+			"name": "Use Normal Mode",
+			"default": true,
+			"description": "Checks the normal mode percent when liking a level.",
+			"enable-if": "progressReq"
+		},
+		"practiceMode": {
+			"type": "bool",
+			"name": "Use Practice Mode",
+			"default": false,
+			"description": "Checks the practice mode percent when liking a level.",
+			"enable-if": "progressReq"
 		}
 	}
 }
