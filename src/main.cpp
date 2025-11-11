@@ -30,16 +30,23 @@ class $modify(LikeLevelAuto, LevelInfoLayer) {
             I should make this look nicer at some point..
             */
             if (ModPointer->getSettingValue<bool>("progressReq")) {
-                int targetPercent = ModPointer->getSettingValue<int>("percentMode");
+
                 bool hasPercents = false;
 
-                hasPercents = targetPercent <= m_level->m_normalPercent.value() && ModPointer->getSettingValue<bool>("normalMode");
-                hasPercents = hasPercents || (targetPercent <= m_level->m_practicePercent && ModPointer->getSettingValue<bool>("practiceMode"));
+                if (m_level->isPlatformer()) {
+                    hasPercents = ModPointer->getSettingValue<bool>("normalPlat") && m_level->m_normalPercent.value() == 100;
+                    hasPercents = hasPercents || (ModPointer->getSettingValue<bool>("pracPlat") && m_level->m_normalPercent.value() == 100);
+                } else {
+                    int targetPercent = ModPointer->getSettingValue<int>("percentMode");
+                    hasPercents = targetPercent <= m_level->m_normalPercent.value() && ModPointer->getSettingValue<bool>("normalMode");
+                    hasPercents = hasPercents || (targetPercent <= m_level->m_practicePercent && ModPointer->getSettingValue<bool>("practiceMode"));
+                }
+
                 if (!hasPercents) {
                     m_fields->hasChecked = true;
                     return;
                 }
-            } 
+            }
 
             // weird, but fixes mobile visual glitch for whatever reason
             LikeItemLayer* extraLikeLayer = LikeItemLayer::create(LikeItemType::Level, m_level->m_levelID, 0);

@@ -27,16 +27,16 @@
 			"default": true,
 			"description": "Toggles this mod without having to disable it!"
 		},
-		"progress":{
-			"type": "title",
-			"name": "Progress",
-			"description": "You can add progress requirements here for levels."
-		},
 		"progressReq": {
 			"name": "Only Like With Progress",
 			"type": "bool",
 			"default": false,
 			"description": "Allows you to seperate which levels are automatically liked if you have progress on them!"
+		},
+		"progress":{
+			"type": "title",
+			"name": "Classic Progress",
+			"description": "You can add progress requirements here for liking classic levels here!"
 		},
 		"percentMode": {
 			"name": "Percent",
@@ -67,7 +67,26 @@
 			"name": "Use Practice Mode",
 			"default": false,
 			"description": "Checks the practice mode percent when liking a level.",
+			"enable-if": "progressReq && normalMode"
+		},
+		"plat": {
+			"type": "title",
+			"name": "Platformer Progress",
+			"description": "You can add platformer requirements here for liking classic levels here! This will only count completions!"
+		},
+		"normalPlat": {
+			"type": "bool",
+			"name": "Normal Mode",
+			"default": true,
+			"description": "Auto like platformer levels if you have completed them in normal mode.",
 			"enable-if": "progressReq"
+		},
+		"practPlat": {
+			"type": "bool",
+			"name": "Practice Mode",
+			"default": false,
+			"description": "Auto like platformer levels if you have completed them in practice mode.",
+			"enable-if": "progressReq && normalPlat"
 		}
 	}
 }
