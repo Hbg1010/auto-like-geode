@@ -1,4 +1,4 @@
-# 1.1.0
+# 1.2.0 
 - GD 2.081 support / Geode 5.0 support
 
 # 1.0.3

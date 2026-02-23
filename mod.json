@@ -1,5 +1,5 @@
 {
-	"geode": "5.0.0-beta.1",
+	"geode": "5.0.1",
 	"gd": {
 		"win": "2.2081",
 		"android": "2.2081",
@@ -8,9 +8,9 @@
 	},
 	"id": "hbg1010.auto-like",
 	"name": "Auto Like",
-	"version": "v1.1.0-alpha.1",
+	"version": "v1.2.0",
 	"developer": "Hbg1010",
-	"description": "automatically like levels",
+	"description": "Automatically Like Levels",
 	"tags": ["online"],
 	"links": {
 		"source": "https://github.com/Hbg1010/auto-like-geode",

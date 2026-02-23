@@ -51,11 +51,15 @@ class $modify(LikeLevelAuto, LevelInfoLayer) {
             // weird, but fixes mobile visual glitch for whatever reason
             LikeItemLayer* extraLikeLayer = LikeItemLayer::create(LikeItemType::Level, m_level->m_levelID, 0);
             extraLikeLayer->onLike(nullptr);
+            extraLikeLayer->onClose(nullptr);
             CCSprite* disableButton = CCSprite::createWithSpriteFrameName("GJ_like2Btn2_001.png");
             m_likeBtn->setSprite(disableButton);
             m_likeBtn->m_bEnabled = false;
             likedItem(LikeItemType::Level, m_level->m_levelID.value(), true);
-            CC_SAFE_DELETE(extraLikeLayer);
+            /*
+            There was a SafeDelete here for extraLikeLayer (I tried supplementing it with onClose()) that caused a crash.
+            Removing that safe delete stopped the crash, but idk if its causing a mem leak or not... Otherwise it should be universally fine? uhhh
+            */
             m_fields->hasChecked = true;
         }
     }
