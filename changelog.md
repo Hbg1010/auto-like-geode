@@ -1,3 +1,7 @@
+# 1.3.0
+- Rewrite credit of Alphalaneous <3
+    - Fixed crashes
+
 # 1.2.0 
 - GD 2.081 support / Geode 5.0 support
 
