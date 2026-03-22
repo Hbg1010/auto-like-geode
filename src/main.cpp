@@ -11,56 +11,44 @@ class $modify(LikeLevelAuto, LevelInfoLayer) {
 
     void levelDownloadFinished(GJGameLevel* p0) {
         LevelInfoLayer::levelDownloadFinished(p0);
-        AutoLike();
+        autoLike();
     }
 
     void updateSideButtons() {
         LevelInfoLayer::updateSideButtons();
-        if (!LevelInfoLayer::shouldDownloadLevel()) AutoLike();
+        if (!LevelInfoLayer::shouldDownloadLevel()) autoLike();
     }
 
     // checks if a level can be liked and does so if it can be.
-    void AutoLike() {
-        auto ModPointer = Mod::get();
-        if (!ModPointer->getSettingValue<bool>("enable") || m_fields->hasChecked) return;
-        if (m_likeBtn && m_likeBtn->isEnabled()) {
+    void autoLike() {
+        auto fields = m_fields.self();
+        if (!Mod::get()->getSettingValue<bool>("enable") || fields->hasChecked || !m_likeBtn || !m_likeBtn->isEnabled()) return;
 
-            /*
-            Eval if a level should be liked based on the players percentage.
-            I should make this look nicer at some point..
-            */
-            if (ModPointer->getSettingValue<bool>("progressReq")) {
+        if (Mod::get()->getSettingValue<bool>("progressReq")) {
+            bool hasPercents = false;
 
-                bool hasPercents = false;
-
-                if (m_level->isPlatformer()) {
-                    hasPercents = ModPointer->getSettingValue<bool>("normalPlat") && m_level->m_normalPercent.value() == 100;
-                    hasPercents = hasPercents || (ModPointer->getSettingValue<bool>("pracPlat") && m_level->m_normalPercent.value() == 100);
-                } else {
-                    int targetPercent = ModPointer->getSettingValue<int>("percentMode");
-                    hasPercents = targetPercent <= m_level->m_normalPercent.value() && ModPointer->getSettingValue<bool>("normalMode");
-                    hasPercents = hasPercents || (targetPercent <= m_level->m_practicePercent && ModPointer->getSettingValue<bool>("practiceMode"));
-                }
-
-                if (!hasPercents) {
-                    m_fields->hasChecked = true;
-                    return;
-                }
+            if (m_level->isPlatformer()) {
+                hasPercents = Mod::get()->getSettingValue<bool>("normalPlat") && m_level->m_normalPercent.value() == 100;
+                hasPercents = hasPercents || (Mod::get()->getSettingValue<bool>("pracPlat") && m_level->m_normalPercent.value() == 100);
+            } else {
+                int targetPercent = Mod::get()->getSettingValue<int>("percentMode");
+                hasPercents = targetPercent <= m_level->m_normalPercent.value() && Mod::get()->getSettingValue<bool>("normalMode");
+                hasPercents = hasPercents || (targetPercent <= m_level->m_practicePercent && Mod::get()->getSettingValue<bool>("practiceMode"));
             }
 
-            // weird, but fixes mobile visual glitch for whatever reason
-            LikeItemLayer* extraLikeLayer = LikeItemLayer::create(LikeItemType::Level, m_level->m_levelID, 0);
-            extraLikeLayer->onLike(nullptr);
-            extraLikeLayer->onClose(nullptr);
-            CCSprite* disableButton = CCSprite::createWithSpriteFrameName("GJ_like2Btn2_001.png");
-            m_likeBtn->setSprite(disableButton);
-            m_likeBtn->m_bEnabled = false;
-            likedItem(LikeItemType::Level, m_level->m_levelID.value(), true);
-            /*
-            There was a SafeDelete here for extraLikeLayer (I tried supplementing it with onClose()) that caused a crash.
-            Removing that safe delete stopped the crash, but idk if its causing a mem leak or not... Otherwise it should be universally fine? uhhh
-            */
-            m_fields->hasChecked = true;
+            if (!hasPercents) {
+                fields->hasChecked = true;
+                return;
+            }
         }
+
+        GameLevelManager::get()->likeItem(LikeItemType::Level, m_level->m_levelID, true, 0);
+        incrementLikes();
+
+        auto spr = CCSprite::createWithSpriteFrameName("GJ_like2Btn2_001.png");
+        m_likeBtn->setSprite(spr);
+        m_likeBtn->setEnabled(false);
+
+        m_fields->hasChecked = true;
     }
 };
