@@ -1,14 +1,14 @@
 {
-	"geode": "5.4.0",
+	"geode": "6.0.0-alpha.1",
 	"gd": {
-		"win": "2.2081",
-		"android": "2.2081",
-		"mac": "2.2081",
-		"ios": "2.2081"
+		"win": "2.2091",
+		"android": "2.2091",
+		"mac": "2.2091",
+		"ios": "2.2091"
 	},
 	"id": "hbg1010.auto-like",
 	"name": "Auto Like",
-	"version": "v1.3.0",
+	"version": "v1.3.1",
 	"developer": "Hbg1010",
 	"description": "Automatically Like Levels",
 	"tags": ["online"],
@@ -36,7 +36,7 @@
 		"progress":{
 			"type": "title",
 			"name": "Classic Progress",
-			"description": "You can add progress requirements here for liking classic levels here!"
+			"description": "You can add progress requirements for liking classic levels here!"
 		},
 		"percentMode": {
 			"name": "Percent",
